@@ -71,10 +71,10 @@ class WhatsAppBot:
         try:
             result_no = self.driver.find_element(By.CSS_SELECTOR, resulting_path)
             if "no results" in result_no.text.lower():
-                print(f"Number {self.current_number} does not exist")
+                print(f"Number {self.current_number} does not exist | Total found: {self.total_found_numbers}")
                 return False
         except:
-            print(f"Number {self.current_number} exists")
+            print(f"Number {self.current_number} exists | Total found: {self.total_found_numbers}")
             return True
 
     def start_getting_numbers(self, excel_bot):
@@ -84,10 +84,10 @@ class WhatsAppBot:
             sleep(0.1)
             self.check_loader()
             if self.number_exists():
-                excel_bot.write_to_workbook(self.current_number, "Found", f"Total numbers found: {self.total_found_numbers}")
+                excel_bot.write_to_workbook(self.current_number, "Found")
                 self.total_found_numbers += 1
             else:
-                excel_bot.write_to_workbook(self.current_number, "Not Found", f"Total numbers found: {self.total_found_numbers}")
+                excel_bot.write_to_workbook(self.current_number, "Not Found")
             self.current_number += 1
         print(f"Total numbers found: {self.total_found_numbers}")
 
