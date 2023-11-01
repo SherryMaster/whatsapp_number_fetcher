@@ -17,8 +17,8 @@ else:
 
 bot = WhatsAppBot()
 
-bot.start_number = 447947030019
-bot.total_numbers = 100
+bot.start_number = int(input("Enter the starting number (with country code): "))
+bot.total_numbers = int(input("Enter the total amount of numbers: "))
 
 bot.start()
 bot.goto_whatsapp()

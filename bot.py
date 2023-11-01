@@ -84,10 +84,10 @@ class WhatsAppBot:
             sleep(0.1)
             self.check_loader()
             if self.number_exists():
-                excel_bot.write_to_workbook(self.current_number, "Found")
+                excel_bot.write_to_workbook(self.current_number, "Found", f"Total numbers found: {self.total_found_numbers}")
                 self.total_found_numbers += 1
             else:
-                excel_bot.write_to_workbook(self.current_number, "Not Found")
+                excel_bot.write_to_workbook(self.current_number, "Not Found", f"Total numbers found: {self.total_found_numbers}")
             self.current_number += 1
         print(f"Total numbers found: {self.total_found_numbers}")
 
