@@ -10,7 +10,7 @@ num_input_path = "#app > div > div > div._2QgSC > div._2Ts6i._3RGKj._318SY > spa
 
 resulting_path = "#app > div > div > div._2QgSC > div._2Ts6i._3RGKj._318SY > span > div > span > div > " \
                  "div.g0rxnol2.g0rxnol2.thghmljt.p357zi0d.rjo8vgbg.ggj6brxn.f8m0rgwh.gfz4du6o.ag5g9lrv.bs7a17vp" \
-                 ".ov67bkzj > div > div > span"
+                 ".ov67bkzj > div"
 
 result_num_path = "#app > div > div > div._2QgSC > div._2Ts6i._3RGKj._318SY > span > div > span > div > " \
                   "div.g0rxnol2.g0rxnol2.thghmljt.p357zi0d.rjo8vgbg.ggj6brxn.f8m0rgwh.gfz4du6o.ag5g9lrv.bs7a17vp" \
@@ -67,29 +67,36 @@ class WhatsAppBot:
             except:
                 break
 
-    def number_exists(self):
+    def number_exists(self, num_index):
         try:
             result_no = self.driver.find_element(By.CSS_SELECTOR, resulting_path)
             if "no results" in result_no.text.lower():
-                print(f"Number {self.current_number} does not exist | Total found: {self.total_found_numbers}")
+                print(f"#{num_index}/{self.total_numbers} - {self.current_number} does not exist | Total found:"
+                      f" {self.total_found_numbers}")
                 return False
+            else:
+                self.total_found_numbers += 1
+                print(f"#{num_index}/{self.total_numbers} - {self.current_number} exists | Total found:"
+                      f" {self.total_found_numbers}")
+                return True
         except:
-            print(f"Number {self.current_number} exists | Total found: {self.total_found_numbers}")
+            print(f"#{num_index}/{self.total_numbers} - {self.current_number} exists | Total found:"
+                  f" {self.total_found_numbers}")
             return True
 
     def start_getting_numbers(self, excel_bot):
         self.current_number = self.start_number
         for i in range(self.total_numbers):
             self.input_number(self.current_number)
-            sleep(0.1)
+            sleep(0.15)
             self.check_loader()
-            if self.number_exists():
-                excel_bot.write_to_workbook(self.current_number, "Found")
-                self.total_found_numbers += 1
+            if self.number_exists(i + 1):
+                excel_bot.write_to_workbook(self.current_number, "existing")
             else:
-                excel_bot.write_to_workbook(self.current_number, "Not Found")
+                excel_bot.write_to_workbook(self.current_number, "non-existing")
             self.current_number += 1
         print(f"Total numbers found: {self.total_found_numbers}")
 
     def quit(self):
+        self.program.kill()
         self.driver.quit()
