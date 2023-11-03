@@ -9,8 +9,7 @@ num_input_path = "#app > div > div > div._2QgSC > div._2Ts6i._3RGKj._318SY > spa
                  "div._1tRmd._3wQ5i.o7fBL > div._1EUay > div._2vDPL > div > div > p"
 
 resulting_path = "#app > div > div > div._2QgSC > div._2Ts6i._3RGKj._318SY > span > div > span > div > " \
-                 "div.g0rxnol2.g0rxnol2.thghmljt.p357zi0d.rjo8vgbg.ggj6brxn.f8m0rgwh.gfz4du6o.ag5g9lrv.bs7a17vp" \
-                 ".ov67bkzj > div"
+                 "div.g0rxnol2.g0rxnol2.thghmljt.p357zi0d"
 
 result_num_path = "#app > div > div > div._2QgSC > div._2Ts6i._3RGKj._318SY > span > div > span > div > " \
                   "div.g0rxnol2.g0rxnol2.thghmljt.p357zi0d.rjo8vgbg.ggj6brxn.f8m0rgwh.gfz4du6o.ag5g9lrv.bs7a17vp" \
