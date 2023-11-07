@@ -19,9 +19,12 @@ class ExcelBot:
         self.wb = load_workbook(self.excel_file_path)
         self.ws = self.wb.active
 
-    def write_to_workbook(self, number, status):
-        self.ws.append([number, status])
+    def write_to_workbook(self, *args):
+        self.ws.append([*args])
         self.wb.save(self.excel_file_path)
 
     def save_workbook(self):
         self.wb.save(self.excel_file_path)
+
+    def get_first_column_elements(self):
+        return [cell.value for cell in self.ws['A']]
