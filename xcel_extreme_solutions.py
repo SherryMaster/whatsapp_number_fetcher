@@ -21,10 +21,11 @@ verify_existing = input(
     "new\nInput 1 or 2: "
 )
 if verify_existing == "1":
+    excel2 = ExcelBot()
     excel_file_path = filedialog.askopenfilename(
         title="Select Excel file with numbers", filetypes=(("Excel files", "*.xlsx"),)
     )
-    excel.load_a_workbook(excel_file_path)
+    excel2.load_a_workbook(excel_file_path)
     verify_mode = 1
 elif verify_existing == "2":
     verify_mode = 2
@@ -35,7 +36,7 @@ bot = WhatsAppBot()
 bot.verification_mode = verify_mode
 
 if verify_mode == 1:
-    bot.number_list_to_verify = excel.get_first_column_elements()
+    bot.number_list_to_verify = excel2.get_first_column_elements()
     print(f"Total numbers to verify: {len(bot.number_list_to_verify)}")
 elif verify_mode == 2:
     bot.start_number = int(input("Enter the starting number (with country code): "))  # 447947030019
