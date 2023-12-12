@@ -60,7 +60,7 @@ class WhatsAppBot:
     def goto_new_chat(self):
         while True:
             try:
-                new_chat_button = self.driver.find_element(By.XPATH, '//*[@data-icon="new-chat"]')
+                new_chat_button = self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/div[3]/header/div[2]/div/span/div[4]/div')
                 new_chat_button.click()
                 break
             except:
