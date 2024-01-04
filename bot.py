@@ -93,7 +93,7 @@ class WhatsAppBot:
         if self.verification_mode == 1:
             for i, num in enumerate(self.number_list_to_verify):
                 self.input_number(num)
-                sleep(0.15)
+                sleep(1)
                 self.check_loader()
                 if self.number_exists(num):
                     excel_bot.write_to_workbook(num, "existing")
@@ -117,7 +117,7 @@ class WhatsAppBot:
             self.current_number = self.start_number
             for i in range(self.total_numbers):
                 self.input_number(self.current_number)
-                sleep(0.15)
+                sleep(1)
                 self.check_loader()
                 if self.number_exists(i + 1):
                     excel_bot.write_to_workbook(self.current_number, "existing")
