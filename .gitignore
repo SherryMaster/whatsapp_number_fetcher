@@ -1,1 +1,10 @@
 /venv/
+*.spec
+/build
+/dist
+*.egg-info
+*.egg
+*.pyc
+*.pyo
+*.swp
+*.swo
