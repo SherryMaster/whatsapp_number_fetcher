@@ -23,7 +23,7 @@ if continue_from_last:
         number_list_to_verify = content
         print("Numbers: " + str(number_list_to_verify))
         total_numbers = len(number_list_to_verify)
-        print("Total numbers remaining: " + str(total_numbers))
+        print("\n\n\nTotal numbers remaining: " + str(total_numbers))
     with open("excel_file_path.txt", "r") as f:
         excel.excel_file_path = f.read()
     excel.load_a_workbook(excel.excel_file_path)
