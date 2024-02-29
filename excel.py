@@ -6,6 +6,7 @@ class ExcelBot:
         self.wb = None
         self.ws = None
         self.excel_file_path = ""
+        self.number_list_to_verify = []
 
     def create_workbook(self, folder, file_name):
         self.excel_file_path = f"{folder}/{file_name}.xlsx"

@@ -38,8 +38,6 @@ class WhatsAppBot:
         self.verification_mode = 1
         self.program = None
         self.driver = None
-        self.start_number = 0
-        self.current_number = 0
         self.total_numbers = 0
         self.existing_numbers = 0
         self.non_existing_numbers = 0
@@ -60,7 +58,8 @@ class WhatsAppBot:
     def goto_new_chat(self):
         while True:
             try:
-                new_chat_button = self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/div[3]/header/div[2]/div/span/div[4]/div')
+                new_chat_button = self.driver.find_element(By.XPATH,
+                                                           '//*[@id="app"]/div/div[2]/div[3]/header/div[2]/div/span/div[4]/div')
                 new_chat_button.click()
                 break
             except:
@@ -90,55 +89,38 @@ class WhatsAppBot:
             return True
 
     def start_getting_numbers(self, excel_bot):
-        if self.verification_mode == 1:
-            for i, num in enumerate(self.number_list_to_verify):
-                self.input_number(num)
-                sleep(1)
-                self.check_loader()
-                if self.number_exists(num):
-                    excel_bot.write_to_workbook(num, "existing")
-                    status = "existing"
-                else:
-                    status = "non-existing"
-                os.system("cls" if os.name == "nt" else "clear")
-                print(
-                    output_template_2.replace("[number]", str(i + 1)).replace(
-                        "[total]",
-                        str(len(self.number_list_to_verify))
-                    ).replace("[existing]", str(self.existing_numbers)).replace(
-                        "[non-existing]", str(self.non_existing_numbers)
-                    ).replace(
-                        "[phone_num]",
-                        str(num)
-                    ).replace("[status]", status)
-                )
+        for i, num in enumerate(self.number_list_to_verify):
+            self.input_number(num)
+            sleep(1)
+            self.check_loader()
+            if self.number_exists(num):
+                excel_bot.write_to_workbook(num, "existing")
+                status = "existing"
+            else:
+                status = "non-existing"
+            os.system("cls" if os.name == "nt" else "clear")
+            print(
+                output_template_2.replace("[number]", str(i + 1)).replace(
+                    "[total]",
+                    str(len(self.number_list_to_verify))
+                ).replace("[existing]", str(self.existing_numbers)).replace(
+                    "[non-existing]", str(self.non_existing_numbers)
+                ).replace(
+                    "[phone_num]",
+                    str(num)
+                ).replace("[status]", status)
+            )
+            with open("numbers.txt", "r+") as f:
+                lines = f.readlines()
+                f.seek(0)
+                f.truncate()
+                f.writelines(lines[1:])
 
-        elif self.verification_mode == 2:
-            self.current_number = self.start_number
-            for i in range(self.total_numbers):
-                self.input_number(self.current_number)
-                sleep(1)
-                self.check_loader()
-                if self.number_exists(i + 1):
-                    excel_bot.write_to_workbook(self.current_number, "existing")
-                    status = "existing"
-                else:
-                    status = "non-existing"
-                os.system("cls" if os.name == "nt" else "clear")
-                print(
-                    output_template_1.replace("[number]", str(i + 1)).replace(
-                        "[total]",
-                        str(self.total_numbers)
-                    ).replace("[existing]", str(self.existing_numbers)).replace(
-                        "[non-existing]", str(self.non_existing_numbers)
-                    ).replace(
-                        "[phone_num]",
-                        str(self.current_number)
-                    ).replace("[status]", status)
-                )
-                self.current_number += 1
-            print(f"Total numbers found: {self.existing_numbers}")
+        print(f"Total numbers found: {self.existing_numbers}")
 
     def quit(self):
+        # delete excel_file_path.txt and numbers.txt
+        os.remove("numbers.txt")
+        os.remove("excel_file_path.txt")
         self.program.kill()
         self.driver.quit()
