@@ -1,0 +1,2 @@
+openpyexcel==2.5.14
+selenium==4.23.0
